@@ -13,9 +13,7 @@ export interface Country {
 }
 export interface SearchFilters {
   region?: string;
-  language?: string;
-  sortBy?: "name" | "population" | "area";
-  sortOrder?: "asc" | "desc";
+  sortBy?: 'name' | 'nameDesc';
 }
 
 export interface WeatherData {

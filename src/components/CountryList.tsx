@@ -10,14 +10,6 @@ interface Props {
   onSelectCountry: (country: Country) => void;
 }
 
-// Loading State Component
-const LoadingState = () => (
-  <div className="flex items-center justify-center min-h-[400px]">
-    <div className="w-12 h-12 border-b-2 border-gray-900 rounded-full animate-spin" />
-  </div>
-);
-
-// Error State Component
 const ErrorState = ({ message }: { message: string }) => (
   <div className="flex items-center justify-center min-h-[400px]">
     <div className="space-y-2 text-center">
@@ -27,7 +19,6 @@ const ErrorState = ({ message }: { message: string }) => (
   </div>
 );
 
-// Empty State Component
 const EmptyState = () => (
   <div className="flex items-center justify-center min-h-[400px]">
     <div className="space-y-2 text-center">
@@ -37,7 +28,6 @@ const EmptyState = () => (
   </div>
 );
 
-// Info Row Component
 const InfoRow = ({ label, value, className = "" }: {
   label: string;
   value: string;
@@ -49,7 +39,6 @@ const InfoRow = ({ label, value, className = "" }: {
   </p>
 );
 
-// Country Card Component
 const CountryCard = ({ country, onClick }: {
   country: Country;
   onClick: () => void;
@@ -65,7 +54,6 @@ const CountryCard = ({ country, onClick }: {
       onClick();
     }
   };
-
   return (
     <div
       onClick={handleClick}
@@ -111,7 +99,6 @@ const CountryCard = ({ country, onClick }: {
   );
 };
 
-// Filter and Sort Logic
 const useCountryFiltering = (countries: Country[], searchQuery: string, filters: SearchFilters) => {
   if (!countries) return [];
   
@@ -123,13 +110,16 @@ const useCountryFiltering = (countries: Country[], searchQuery: string, filters:
 
   if (filters.sortBy) {
     filtered = [...filtered].sort((a, b) => {
-      const aValue = a.name.toLowerCase();
-      const bValue = b.name.toLowerCase();
-      const sortOrder = filters.sortOrder === 'desc' ? -1 : 1;
-      return aValue > bValue ? sortOrder : -sortOrder;
+      switch (filters.sortBy) {
+        case 'name':
+          return a.name.localeCompare(b.name);
+        case 'nameDesc':
+          return b.name.localeCompare(a.name);
+        default:
+          return 0;
+      }
     });
   }
-
   return filtered;
 };
 
@@ -137,12 +127,16 @@ const useCountryFiltering = (countries: Country[], searchQuery: string, filters:
 export const CountryList = ({ searchQuery, filters, onSelectCountry }: Props) => {
   const { loading, error, data } = useQuery(GET_COUNTRIES);
   
-  if (loading) return <LoadingState />;
+  if (loading) return   
+  <div className="flex items-center justify-center min-h-[400px]">
+    <div className="w-12 h-12 border-b-2 border-gray-900 rounded-full animate-spin" />
+  </div>;
   if (error) return <ErrorState message={error.message} />;
   
   const filteredCountries = useCountryFiltering(data?.countries, searchQuery, filters);
   
-  if (filteredCountries.length === 0) return <EmptyState />;
+  if (filteredCountries.length === 0) 
+    return <EmptyState />;
 
   return (
     <div className="grid grid-cols-1 gap-6 p-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">

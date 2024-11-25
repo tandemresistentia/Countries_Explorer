@@ -2,7 +2,7 @@ import { render, screen, fireEvent } from '@testing-library/react';
 import { MockedProvider } from '@apollo/client/testing';
 import App from '../src/App';
 import { GET_COUNTRIES } from '../src/services/apollo';
-import { mockCountries } from '../src/__mocks__/apollo';
+import { mockCountries } from './__mocks__/apollo';
 import { describe, it, expect } from 'vitest';
 const mocks = [{
   request: {

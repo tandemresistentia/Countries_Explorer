@@ -2,7 +2,7 @@ import { render, screen } from '@testing-library/react';
 import { MockedProvider } from '@apollo/client/testing';
 import { CountryList } from '../src/components/CountryList';
 import { GET_COUNTRIES } from '../src/services/apollo';
-import { mockCountries } from '../src/__mocks__/apollo';
+import { mockCountries } from './__mocks__/apollo';
 import { describe, it, expect, vi } from 'vitest';
 
 const mocks = [

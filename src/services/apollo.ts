@@ -30,29 +30,3 @@ export const GET_COUNTRIES = gql`
   }
 `;
 
-export const GET_COUNTRY = gql`
-  query GetCountry($code: ID!) {
-    country(code: $code) {
-      code
-      name
-      capital
-      continent {
-        name
-        code
-      }
-      languages {
-        name
-        code
-      }
-      currency
-      emoji
-      states {
-        name
-        code
-      }
-      native
-      phone
-    }
-  }
-`;
-

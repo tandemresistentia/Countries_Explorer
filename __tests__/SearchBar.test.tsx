@@ -18,7 +18,9 @@ describe('SearchBar', () => {
       />
     );
 
-    const searchInput = screen.getByPlaceholderText(/search countries/i);
+    const searchInput = screen.getByRole('searchbox', {
+      name: /search countries/i
+    });
     fireEvent.change(searchInput, { target: { value: 'test' } });
     
     expect(mockOnSearch).toHaveBeenCalledWith('test');
@@ -32,17 +34,9 @@ describe('SearchBar', () => {
       />
     );
 
-    const regionSelect = screen.getByRole('combobox', { 
-      name: /filter by region/i  // Made case insensitive
-    });
+    const regionSelect = screen.getByDisplayValue('All regions');
     fireEvent.change(regionSelect, { target: { value: 'Europe' } });
     
-    // Test to match exactly how onFilterChange is being called in the component
-    expect(mockOnFilterChange).toHaveBeenCalledWith({ 
-      sortBy: undefined, 
-      sortOrder: undefined,
-      region: 'Europe', 
-      language: undefined
-    });
+    expect(mockOnFilterChange).toHaveBeenCalledWith({ region: 'Europe' });
   });
 });
