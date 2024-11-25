@@ -19,17 +19,17 @@ describe('CountryDetail', () => {
     code: 'US',
     name: 'United States',
     capital: 'Washington, D.C.',
-    region: 'North America',
     languages: [{ name: 'English' }],
-    currency: 'USD',
+    currency: 'USD', 
     phone: '+1',
     emoji: '🇺🇸',
     flag: '🇺🇸',
-    area: 9833517,
-    population: 331002651,
-    timezones: ['UTC-12:00', 'UTC-11:00'],
-    continent: { name: 'North America' }
-  };
+    native: 'English',
+    continent: {
+      name: 'North America',
+      code: 'NA'
+    },
+   };
   
   const mockOnBack = vi.fn();
 
@@ -54,7 +54,7 @@ describe('CountryDetail', () => {
     expect(screen.getByText(country.capital)).toBeInTheDocument();
     expect(screen.getByText(country.emoji)).toBeInTheDocument();
     expect(screen.getByText(country.continent.name)).toBeInTheDocument();
-    expect(screen.getByText(country.languages[0].name)).toBeInTheDocument();
+    expect(screen.getAllByText(country.languages[0].name)[1]).toBeInTheDocument();
     expect(screen.getByText(country.currency)).toBeInTheDocument();
     expect(screen.getByText('++1')).toBeInTheDocument();
   });
