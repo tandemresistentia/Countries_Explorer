@@ -1,6 +1,6 @@
 import { ArrowLeft, Search, SortAsc, Globe } from "lucide-react";
 import { useState } from "react";
-import type { SearchFilters } from "../types/types";
+import type { SearchFilters } from "../types/commonTypes";
 
 type Props = {
   onSearch: (query: string) => void;

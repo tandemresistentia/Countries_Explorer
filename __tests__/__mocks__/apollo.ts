@@ -1,5 +1,5 @@
 
-import { Country } from "../../src/types/types";
+import { Country } from "../../src/types/commonTypes";
 import { vi } from 'vitest';
 
 export const mockCountries: Country[] = [

@@ -18,33 +18,32 @@ const mocks = [
   }
 ];
 
-describe('CountryList', () => {
-  const mockOnSelectCountry = vi.fn();
+const defaultProps = {
+  searchQuery: "",
+  filters: {},
+  onSelectCountry: vi.fn(),
+  page: 1,
+  itemsPerPage: 20
+};
 
+describe('CountryList', () => {
   it('renders loading state', () => {
     render(
       <MockedProvider mocks={mocks} addTypename={false}>
-        <CountryList
-          searchQuery=""
-          filters={{}}
-          onSelectCountry={mockOnSelectCountry}
-        />
+        <CountryList {...defaultProps} />
       </MockedProvider>
     );
+
+    expect(screen.getByRole('status')).toBeInTheDocument();
   });
 
   it('renders countries after loading', async () => {
     render(
       <MockedProvider mocks={mocks} addTypename={false}>
-        <CountryList
-          searchQuery=""
-          filters={{}}
-          onSelectCountry={mockOnSelectCountry}
-        />
+        <CountryList {...defaultProps} />
       </MockedProvider>
     );
 
-    // Wait for countries to load
     expect(await screen.findByText('United States')).toBeInTheDocument();
     expect(screen.getByText('France')).toBeInTheDocument();
   });
@@ -52,11 +51,7 @@ describe('CountryList', () => {
   it('filters countries by search query', async () => {
     render(
       <MockedProvider mocks={mocks} addTypename={false}>
-        <CountryList
-          searchQuery="France"
-          filters={{}}
-          onSelectCountry={mockOnSelectCountry}
-        />
+        <CountryList {...defaultProps} searchQuery="France" />
       </MockedProvider>
     );
 
@@ -67,10 +62,9 @@ describe('CountryList', () => {
   it('filters countries by region', async () => {
     render(
       <MockedProvider mocks={mocks} addTypename={false}>
-        <CountryList
-          searchQuery=""
+        <CountryList 
+          {...defaultProps} 
           filters={{ region: 'Europe' }}
-          onSelectCountry={mockOnSelectCountry}
         />
       </MockedProvider>
     );
@@ -79,4 +73,3 @@ describe('CountryList', () => {
     expect(screen.queryByText('United States')).not.toBeInTheDocument();
   });
 });
-

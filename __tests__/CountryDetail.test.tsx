@@ -2,7 +2,7 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import CountryDetail from '../src/components/CountryDetail';
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import type { Country } from '../src/types/types';
+import type { Country } from '../src/types/commonTypes';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ChakraProvider, defaultSystem } from '@chakra-ui/react';
 

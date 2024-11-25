@@ -1,5 +1,5 @@
 import axios from "axios";
-import type { WeatherData } from "../types/types";
+import type { WeatherData } from "../types/commonTypes";
 
 const WEATHER_API_KEY = import.meta.env.VITE_WEATHER_API_KEY;
 const BASE_URL = "https://api.openweathermap.org/data/2.5";

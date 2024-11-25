@@ -1,13 +1,15 @@
 import React, { useState } from "react";
 import { useQuery } from "@apollo/client";
 import { GET_COUNTRIES } from "../services/apollo";
-import type { Country, SearchFilters } from "../types/types";
+import type { Country, SearchFilters } from "../types/commonTypes";
 import { ChevronDown, ChevronUp } from "lucide-react";
 
 interface Props {
   searchQuery: string;
   filters: SearchFilters;
   onSelectCountry: (country: Country) => void;
+  page: number;
+  itemsPerPage: number;
 }
 
 const ErrorState = ({ message }: { message: string }) => (
@@ -46,6 +48,7 @@ const CountryCard = ({ country, onClick }: {
   const [isExpanded, setIsExpanded] = useState(false);
   const languagesText = country.languages.map(lang => lang.name).join(', ');
   const hasMultipleLanguages = country.languages.length > 1;
+  
   const handleClick = (e: React.MouseEvent) => {
     if ((e.target as HTMLElement).closest('.expand-button')) {
       e.stopPropagation();
@@ -99,7 +102,13 @@ const CountryCard = ({ country, onClick }: {
   );
 };
 
-const useCountryFiltering = (countries: Country[], searchQuery: string, filters: SearchFilters) => {
+const useCountryFiltering = (
+  countries: Country[], 
+  searchQuery: string, 
+  filters: SearchFilters,
+  page: number,
+  itemsPerPage: number
+) => {
   if (!countries) return [];
   
   let filtered = countries.filter(country => {
@@ -120,27 +129,30 @@ const useCountryFiltering = (countries: Country[], searchQuery: string, filters:
       }
     });
   }
-  return filtered;
+  return filtered.slice(0, page * itemsPerPage);
 };
 
-// Main Component
-export const CountryList = ({ searchQuery, filters, onSelectCountry }: Props) => {
+export const CountryList = ({ searchQuery, filters, onSelectCountry, page, itemsPerPage }: Props) => {
   const { loading, error, data } = useQuery(GET_COUNTRIES);
   
-  if (loading) return   
-  <div className="flex items-center justify-center min-h-[400px]">
-    <div className="w-12 h-12 border-b-2 border-gray-900 rounded-full animate-spin" />
-  </div>;
+  if (loading) return (
+    <div className="flex items-center justify-center min-h-[400px]">
+      <div 
+        role="status"
+        className="w-12 h-12 border-b-2 border-gray-900 rounded-full animate-spin" 
+      />
+    </div>
+  );
+  
   if (error) return <ErrorState message={error.message} />;
   
-  const filteredCountries = useCountryFiltering(data?.countries, searchQuery, filters);
+  const visibleCountries = useCountryFiltering(data?.countries, searchQuery, filters, page, itemsPerPage);
   
-  if (filteredCountries.length === 0) 
-    return <EmptyState />;
+  if (visibleCountries.length === 0) return <EmptyState />;
 
   return (
     <div className="grid grid-cols-1 gap-6 p-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-      {filteredCountries.map(country => (
+      {visibleCountries.map(country => (
         <CountryCard
           key={country.code}
           country={country}

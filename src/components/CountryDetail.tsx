@@ -1,11 +1,22 @@
 import WeatherDisplay from "./WeatherDisplay";
-import type { Country } from "../types/types";
+import type { Country } from "../types/commonTypes";
 import { ArrowLeft } from "lucide-react";
 
 interface Props {
   country: Country;
   onBack: () => void;
 }
+
+const InfoItem = ({ label, value }: { label: string; value: string }) => (
+  <div className="flex flex-col">
+    <span className="mb-1 text-sm font-medium text-gray-500">
+      {label}
+    </span>
+    <span className="text-base text-gray-900">
+      {value}
+    </span>
+  </div>
+);
 
 export const CountryDetail = ({ country, onBack }: Props) => {
   return (
@@ -67,16 +78,5 @@ export const CountryDetail = ({ country, onBack }: Props) => {
     </div>
   );
 };
-
-const InfoItem = ({ label, value }: { label: string; value: string }) => (
-  <div className="flex flex-col">
-    <span className="mb-1 text-sm font-medium text-gray-500">
-      {label}
-    </span>
-    <span className="text-base text-gray-900">
-      {value}
-    </span>
-  </div>
-);
 
 export default CountryDetail;

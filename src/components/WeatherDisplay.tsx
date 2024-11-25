@@ -1,7 +1,7 @@
 import { Box, Text, Spinner } from "@chakra-ui/react";
 import { useQuery } from "@tanstack/react-query";
 import { getWeather } from "../services/weatherApi";
-import { WeatherData } from "../types/types";
+import { WeatherData } from "../types/commonTypes";
 
 interface Props {
   city: string;

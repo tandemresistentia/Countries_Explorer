@@ -1,16 +1,16 @@
 export interface Country {
+  phone: any;
+  currency: string;
+  native: string;
+  emoji: string;
   code: string;
   name: string;
   capital: string;
-  region: string;
-  area: number;
-  population: number;
   flag: string;
   languages: Array<{ name: string }>;
-  currency: string;
-  timezones: string[];
-  [key: string]: any; 
-}
+  continent: { name: string };
+ }
+ 
 export interface SearchFilters {
   region?: string;
   sortBy?: 'name' | 'nameDesc';
