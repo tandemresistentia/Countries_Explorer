@@ -1,9 +1,8 @@
-// src/__tests__/CountryDetail.test.tsx
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import CountryDetail from '../components/CountryDetail';
-import { describe, it, expect, vi } from 'vitest';
-import type { Country } from '../types/types';
+import CountryDetail from '../src/components/CountryDetail';
+import { describe, it, expect, vi, beforeEach } from 'vitest';
+import type { Country } from '../src/types/types';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ChakraProvider, defaultSystem } from '@chakra-ui/react';
 
@@ -51,7 +50,6 @@ describe('CountryDetail', () => {
   it('renders country details correctly', () => {
     renderWithProviders(<CountryDetail country={country} onBack={mockOnBack} />);
 
-    // Use more specific queries
     expect(screen.getByRole('heading', { level: 1, name: country.name })).toBeInTheDocument();
     expect(screen.getByText(country.capital)).toBeInTheDocument();
     expect(screen.getByText(country.emoji)).toBeInTheDocument();

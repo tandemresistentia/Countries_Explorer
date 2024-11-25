@@ -57,7 +57,6 @@ const CountryCard = ({ country, onClick }: {
   const [isExpanded, setIsExpanded] = useState(false);
   const languagesText = country.languages.map(lang => lang.name).join(', ');
   const hasMultipleLanguages = country.languages.length > 1;
-  console.log(country);
   const handleClick = (e: React.MouseEvent) => {
     if ((e.target as HTMLElement).closest('.expand-button')) {
       e.stopPropagation();

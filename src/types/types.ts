@@ -17,3 +17,14 @@ export interface SearchFilters {
   sortBy?: "name" | "population" | "area";
   sortOrder?: "asc" | "desc";
 }
+
+export interface WeatherData {
+  main: {
+    temp: number;
+    humidity: number;
+  };
+  weather: Array<{
+    description: string;
+    icon: string;
+  }>;
+}

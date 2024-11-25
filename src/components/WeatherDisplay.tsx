@@ -1,20 +1,10 @@
 import { Box, Text, Spinner } from "@chakra-ui/react";
 import { useQuery } from "@tanstack/react-query";
 import { getWeather } from "../services/weatherApi";
+import { WeatherData } from "../types/types";
 
 interface Props {
   city: string;
-}
-
-export interface WeatherData {
-  main: {
-    temp: number;
-    humidity: number;
-  };
-  weather: Array<{
-    description: string;
-    icon: string;
-  }>;
 }
 
 const WeatherDisplay = ({ city }: Props) => {
