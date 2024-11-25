@@ -8,7 +8,7 @@ export interface Country {
   capital: string;
   flag: string;
   languages: Array<{ name: string }>;
-  continent: { name: string };
+  continent: { name: string, code: string };
  }
  
 export interface SearchFilters {
