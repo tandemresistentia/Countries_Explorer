@@ -35,9 +35,9 @@ export default function MainLayout() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="max-w-6xl min-h-screen bg-gray-50">
       <div className="px-4 pt-4 mx-auto max-w-7xl">
-        <div className="min-w-[1220px] mx-auto px-4 sm:px-6 lg:px-8 w-full">
+        <div className="min-w-[70em] w-full px-4 mx-auto sm:px-6 lg:px-8">
           <SearchBar
             onSearch={setSearchQuery}
             onFilterChange={setFilters}
